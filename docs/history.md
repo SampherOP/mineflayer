@@ -1,5 +1,14 @@
 ## 4.37.0
 
+## 4.38.0
+* [🎈 26.1 (#3854)](https://github.com/PrismarineJS/mineflayer/commit/aa8fdfaf42d48f0be9d8fbde45eafd40fde4d134) (thanks @rom1504bot)
+* [Updated and fixed some issues in CONTRIBUTING.md (#3955)](https://github.com/PrismarineJS/mineflayer/commit/d0189a88cc8b4adf56e18cdf1a635da74482c3ba) (thanks @K-en-u)
+* [doc: Fix features.json link (#3959)](https://github.com/PrismarineJS/mineflayer/commit/5ebce9b489cf8a9acd938a902fb560bacd7094a9) (thanks @narcis-dev)
+* [Language ZH_CN Readme update (#3953)](https://github.com/PrismarineJS/mineflayer/commit/a89e76b7a45e790247be77b5c18e155efd89315d) (thanks @K-en-u)
+* [fix(ci): use execFileSync in updator script to prevent command injection (#3954)](https://github.com/PrismarineJS/mineflayer/commit/23a5da947b0e2d40a2eeb03bfdc68374a2716c48) (thanks @Spagles)
+* [Update quote link to archived version](https://github.com/PrismarineJS/mineflayer/commit/7368ac8e9cc8dc9800d611bd46b2548c8b8fe48d) (thanks @extremeheat)
+* [docs: correct bot.dig forceLook description (#3923)](https://github.com/PrismarineJS/mineflayer/commit/b5478b029ee616b9c009bb6d4f2afcf3fab1c5d8) (thanks @VasilisDragon)
+
 ## 4.37.1
 * [Convert yaw/pitch in sync_entity_position handler (#3896)](https://github.com/PrismarineJS/mineflayer/commit/2b65c14c6d335758d1fe753ade99d736b610413b) (thanks @domdomegg)
 * [Backport velocity field changes from 1.21.9+ to older versions (#3839)](https://github.com/PrismarineJS/mineflayer/commit/61fbd3a38177bde100b4ee9e130ccbcdb73fc7ea) (thanks @SuperGamerTron)
