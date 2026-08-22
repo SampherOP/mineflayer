@@ -34,6 +34,22 @@ const download = require('minecraft-wrap').download
 
 const MC_SERVER_PATH = path.join(__dirname, 'server')
 
+// wrap's start callback fires on the server's "Done" log line, which precedes
+// the server answering status requests — by ~80ms on 26.1. That gap is version
+// dependent, so retry rather than sleep a fixed time, and keep closeTimeout well
+// under the 120s hook budget so the retries fit.
+async function pingUntilReady (port, host, version, attempts = 5) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await mc.ping({ port, host, version, closeTimeout: 5 * 1000 })
+    } catch (err) {
+      console.log(`ping attempt ${attempt} failed: ${err.message}`)
+      if (attempt === attempts) throw err
+      await new Promise(resolve => setTimeout(resolve, 250))
+    }
+  }
+}
+
 for (const supportedVersion of mineflayer.testedVersions) {
   let PORT = 25565
   const registry = require('prismarine-registry')(supportedVersion)
@@ -94,17 +110,12 @@ for (const supportedVersion of mineflayer.testedVersions) {
           wrap.startServer(propOverrides, (err) => {
             if (err) return done(err)
             console.log(`pinging ${version.minecraftVersion} port : ${PORT}`)
-            mc.ping({
-              port: PORT,
-              host: '127.0.0.1',
-              version: supportedVersion
-            }, (err, results) => {
-              if (err) return done(err)
+            pingUntilReady(PORT, '127.0.0.1', supportedVersion).then(results => {
               console.log('pong')
               assert.ok(results.latency >= 0)
               assert.ok(results.latency <= 1000)
               begin()
-            })
+            }).catch(done)
           })
         })
       } else begin()
