@@ -3,28 +3,18 @@
  * that sends chat messages whenever something interesting happens
  * on the server you are connected to.
  *
- * Below you can find a wide range of different events you can watch
- * but remember to check out the API documentation to find even more!
- *
- * Some events may be commented out because they are very frequent and
- * may flood the chat, feel free to check them out for other purposes though.
- *
  * This bot also replies to some specific chat messages so you can ask him
  * a few information while you are in game.
  */
 const mineflayer = require('mineflayer')
 const { Vec3 } = require('vec3')
 
-if (process.argv.length < 4 || process.argv.length > 6) {
-  console.log('Usage : node chatterbot.js <host> <port> [<name>] [<password>]')
-  process.exit(1)
-}
-
+// Aapki custom settings yahan direct inject kar di hain
 const bot = mineflayer.createBot({
-  host: process.argv[2],
-  port: parseInt(process.argv[3]),
-  username: process.argv[4] ? process.argv[4] : 'chatterbox',
-  password: process.argv[5]
+  host: 'lifestealhg.mcsh.io', // 👈 Aapki Server IP
+  port: 25565,                  // 👈 Port
+  username: 'slobon'            // 👈 Bot ka naam
+  // version: '1.20.4'          // 💡 Agar connect na ho, to is line ka '//' hata kar apna version likh dein
 })
 
 bot.on('chat', (username, message) => {
@@ -191,7 +181,9 @@ bot.on('entityHurt', (entity) => {
   if (entity.type === 'mob') {
     bot.chat(`Haha! The ${entity.displayName} got hurt!`)
   } else if (entity.type === 'player') {
-    bot.chat(`Aww, poor ${entity.username} got hurt. Maybe you shouldn't have a ping of ${bot.players[entity.username].ping}`)
+    if (bot.players[entity.username]) {
+      bot.chat(`Aww, poor ${entity.username} got hurt. Maybe you shouldn't have a ping of ${bot.players[entity.username].ping}`)
+    }
   }
 })
 bot.on('entitySwingArm', (entity) => {
